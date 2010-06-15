@@ -55,6 +55,26 @@ class Taskboard < ActiveRecord::Base
     clonned_taskboard
   end
 
+  def delete
+    Taskboard.transaction do
+      cards.each do |c|
+        c.destroy
+      end
+
+      columns.each do |c|
+        c.destroy
+      end
+
+      rows.each do |r|
+        r.destroy
+      end
+
+      self.destroy
+    end
+
+    true
+  end
+
   def burndown
     burndown = Hash.new(0)
     self.cards.each { |card|
@@ -65,7 +85,7 @@ class Taskboard < ActiveRecord::Base
 
     return burndown
   end
-  
+
   def to_json options = {}
     options[:include] = { :columns => {}, :rows => {}, :cards => { :methods => [:tag_list, :hours_left, :hours_left_updated] } }
     options[:except] = [:created_at, :updated_at]

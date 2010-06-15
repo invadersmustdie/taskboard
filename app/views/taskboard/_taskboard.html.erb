@@ -25,6 +25,9 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 			<% link_to({ :controller => 'taskboard', :action => 'clone_taskboard', :id => taskboard }, :title => "Create a copy of '#{h(taskboard.name)}'", :rel => 'clone', :class => 'cloneTaskboard') do -%>
 			<img src="/images/taskboard_clone.png" alt="Create a copy of '<%= h(taskboard.name) %>'" />
 			<% end -%>
+			<% link_to({ :controller => 'taskboard', :action => 'delete_taskboard', :id => taskboard }, :title => "Delete '#{h(taskboard.name)}'", :rel => 'delete', :class => 'deleteTaskboard') do -%>
+			<img src="/images/taskboard_delete.png" alt="Delete '<%= h(taskboard.name) %>'" />
+            <% end -%>
 		</li>
 	</ul>
 	<% end -%>

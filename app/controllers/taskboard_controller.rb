@@ -56,6 +56,17 @@ class TaskboardController < JuggernautSyncController
     end
   end
 
+  def delete_taskboard
+    if params[:id].empty?
+      flash[:error] = "Source taskboard should be set!"
+      redirect_to :action => 'index'
+    else
+      taskboard = Taskboard.find(params[:id].to_i)
+      taskboard.delete
+      redirect_to :controller => 'project', :action => 'index'
+    end
+  end
+
   def get_taskboard
     render :json => Taskboard.find(params[:id].to_i).to_json
   end
